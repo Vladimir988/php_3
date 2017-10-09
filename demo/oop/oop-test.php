@@ -127,3 +127,55 @@
 	$super->paint();
 	$super->fire();
 	$super->stopProject();
+
+
+	function __autoload($name) {
+		require "classes/$name.class.php";
+	}
+	$obj1 = new MyClass();
+	$obj2 = new ClassTrue();
+
+
+	class ParentClass {
+		public $public = 1;
+		protected $protected = 2;
+		private $private = 3;
+
+		function getProtected() {
+			return $this->protected;
+		}
+		function getPrivate() {
+			return $this->private;
+		}
+	}
+
+	$parent = new ParentClass();
+	echo $parent->public;
+	//echo $parent->protected; // нельзя
+	//echo $parent->private; // нельзя
+
+	echo $parent->getProtected();
+	echo $parent->getPrivate();
+
+	class MyClass {
+		//private $arr = [];
+		private $name, $age;
+
+		function __set($n, $v) {
+			switch($n) {
+				case 'name': $this->name = $v; break;
+				//case 'age': $this->y = $v; break;
+				//default: throw new Exception('!!!!!');
+			}
+		}
+		function __get($n) {
+			return $this->$n;
+		}
+		function __toString() {
+			return "Этот объект, экземпляр класса " . __CLASS__;
+		}
+	}
+	$obj = new MyClass();
+	$obj->name = 100;
+	echo $obj->name;
+	echo $obj->name = "John";
