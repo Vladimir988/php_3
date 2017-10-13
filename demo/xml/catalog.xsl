@@ -18,49 +18,49 @@
       <style type="text/css">
         * {
           margin: 0px;
-          padding: 0px
+          padding: 0px;
         }
         
         h1 {
           padding: 10px;
           text-align: center;
-          background-color: #ccf
+          background-color: #ccf;
         }
         
         table {
           margin: 10px;
-          border-collapse: collapse
+          border-collapse: collapse;
         }
         
         td {
           border: 1px solid gray;
-          padding: 5px
+          padding: 5px;
         }
         
         thead td {
           text-align: center;
           background-color: #ccf;
-          font-weight: bold
+          font-weight: bold;
         }
         
         #colTitle {
-          width: 300px
+          width: 300px;
         }
         
         #colAutor {
-          width: 300px
+          width: 300px;
         }
         
         #colPubYear {
-          width: 100px
+          width: 100px;
         }
         
         #colPrice {
-          width: 100px
+          width: 100px;
         }
         
         .expenceBook td {
-          background-color: yellow
+          background-color: yellow;
         }
       </style>
     </head>

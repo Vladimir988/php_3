@@ -3,6 +3,9 @@
 
 	class NewsDB implements INewsDB {
 		const DB_NAME = "../news.db";
+		const RSS_NAME = "rss.xml";
+		const RSS_TITLE = "Новостная лента";
+		const RSS_LINK = "http://localhost/php_3/news/news.php";
 		private $_db = NULL;
 
 		function __get($name){
@@ -42,7 +45,13 @@
 		function saveNews($title, $category, $description, $source){
 			$dt = time();
 			$sql = "INSERT INTO msgs(title, category, description, source, datetime) VALUES('$title', $category, '$description', '$source', $dt)";
-			return $res = $this->_db->exec($sql);
+			$res = $this->_db->exec($sql);
+			if(!$res) {
+				return false;
+			}else {
+				$this->createRss();
+				return true;
+			}
 		}
 
 		private function db2Arr($data){
@@ -68,7 +77,57 @@
 			$data = strip_tags($data);
 			return $this->_db->escapeString($data);
 		}
+
 		function clearInt($data){
 			return abs((int)$data);
+		}
+
+		private function createRss(){
+			$dom = new DomDocument("1.0", "utf-8");
+			$dom->formatOutput = true;
+			$dom->preserveWhiteSpace = false;
+
+			$rss = $dom->createElement("rss");
+			$dom->appendChild($rss);
+
+			$version = $dom->createAttribute("version");
+			$version->value = '2.0';
+			$rss->appendChild($version);
+
+			$channel = $dom->createElement("channel");
+			$rss->appendChild($channel);
+
+			$title = $dom->createElement("title", self::RSS_TITLE);
+			$link = $dom->createElement("link", self::RSS_LINK);
+			$channel->appendChild($title);
+			$channel->appendChild($link);
+
+			$lenta = $this->getNews();
+			if(!$lenta) return false;
+
+			foreach($lenta as $news){
+				$item = $dom->createElement("item");
+				$data_attribut = $dom->createAttribute("data-attribut");
+				$data_attribut->value = "data-attribut-value";
+				$item->appendChild($data_attribut);
+
+				$title = $dom->createElement("title", $news["title"]);
+				$link = $dom->createElement("link", "#");
+				$desc = $dom->createElement("description");
+				$cdata = $dom->createCDATASection($news["description"]);
+				$desc->appendChild($cdata);
+				$dt = date("r", $news["datetime"]);
+				$pubDate = $dom->createElement("pubDate", $dt);
+				$category = $dom->createElement("category", $news["category"]);
+
+				$item->appendChild($title);
+				$item->appendChild($link);
+				$item->appendChild($desc);
+				$item->appendChild($pubDate);
+				$item->appendChild($category);
+
+				$channel->appendChild($item);
+			}
+			$dom->save(self::RSS_NAME);
 		}
 	}
