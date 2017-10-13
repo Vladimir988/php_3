@@ -34,7 +34,6 @@
 				}
 			}
 		}
-	}
 
 		function __destruct(){
 			unset($this->_db);
