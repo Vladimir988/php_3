@@ -1,7 +1,7 @@
 <?php
-error_reporting(0);
-require "../news/NewsDB.class.php";
-class NewsService extends NewsDB{
+	error_reporting(0);
+	require "../news/NewsDB.class.php";
+	class NewsService extends NewsDB{
 	/* Метод возвращает новость по её идентификатору */
 	function getNewsById($id){
 		try{
@@ -30,5 +30,8 @@ class NewsService extends NewsDB{
 		else
 			return base64_encode(serialize($result));
 		}
-}
+	}
+
+	
+	
 ?>

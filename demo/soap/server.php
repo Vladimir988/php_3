@@ -1,6 +1,6 @@
 <?php
 	// Описание функции Web-сервиса
-	function getStock($id) {
+	function getStock($shelf_name) {
 		$stock = [
 			"a" => 100,
 			"b" => 200,
@@ -8,12 +8,12 @@
 			"d" => 400,
 			"e" => 500,
 		];
-		if(isset($stock[$id])){
-			$quantity = $stock[$id];
+		if(isset($stock[$$shelf_name])){
+			$quantity = $stock[$$shelf_name];
 			return $quantity."<br>";
 		}else{
 			return 0;
-			//throw new SoapFault("Server", "Несуществующий id товара");
+			//throw new SoapFault("Server", "Несуществующий $shelf_name товара");
 		}
 	}
 	// Отключение кэширования WSDL-документа

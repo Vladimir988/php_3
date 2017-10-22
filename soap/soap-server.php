@@ -4,10 +4,7 @@ class NewsService extends NewsDB{
 	/* Метод возвращает новость по её идентификатору */
 	function getNewsById($id){
 		try{
-			$sql = "SELECT id, title, 
-					(SELECT name FROM category WHERE category.id=msgs.category) as category, description, source, datetime 
-					FROM msgsa
-					WHERE id = $id";
+			$sql = "SELECT id, title, (SELECT name FROM category WHERE category.id=msgs.category) as category, description, source, datetime FROM msgs WHERE id = $id";
 			$result = $this->_db->query($sql);
 			if (!is_object($result)) 
 				throw new Exception($this->_db->lastErrorMsg());
