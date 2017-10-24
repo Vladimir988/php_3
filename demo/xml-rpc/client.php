@@ -17,7 +17,7 @@
 		$context = stream_context_create($opts);		
 	//$fp = fopen('http://xml-rpc/server.php', 'r', false, $context);
 	//$retval = stream_get_contents($fp);
-		$retval = file_get_contents('http://localhost/mysite_php3/demo/xml-rpc/server.php', false, $context);
+		$retval = file_get_contents('http://localhost/php_3/demo/xml-rpc/server.php', false, $context);
 		$data = xmlrpc_decode($retval);
 		if (is_array($data) && xmlrpc_is_fault($data)){
 			$arrMessage[] = "Невозможно получить данные о полке номер $code";

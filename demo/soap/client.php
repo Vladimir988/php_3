@@ -1,7 +1,7 @@
 <?php
 	try {
 		// Создание SOAP-клиента
-		$client = new SoapClient("http://localhost/mysite_php3/demo/soap/stock.wsdl");
+		$client = new SoapClient("http://localhost/php_3/demo/soap/stock.wsdl");
 		print_r($client->__getFunctions());
 		exit;
 		// Посылка SOAP-запроса c получением результат

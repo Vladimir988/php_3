@@ -1,5 +1,17 @@
 <?php 
-
+  session_start();
+  $output = "";
+  if($_SERVER["REQUEST_METHOD"] == "POST"){
+    if(!isset($_SESSION["randStr"])){
+      $output = "Включите отображение картинок";
+    }else{
+      if($_SESSION["randStr"] == strToLower($_POST["answer"])) {
+        $output = "YES";
+      }else{
+        $output = "NO";
+      }
+    }
+  }
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -10,7 +22,7 @@
 </head>
 
 <body>
-  <h1>Регистрация</h1>
+  <h1>Введите капчу: </h1>
   <form action="" method="post">
     <div>
       <img src="noise-picture.php">
@@ -22,7 +34,7 @@
     <input type="submit" value="Подтвердить">
   </form>
   <?php 
-  
+   echo $output;
   ?>
 </body>
 

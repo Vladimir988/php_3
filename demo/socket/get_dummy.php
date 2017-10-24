@@ -11,7 +11,7 @@ header("Content-Type: text/html; charset=utf-8");
 	$str_query = "name=John&age=25";
 	
 	// Посылка HTTP-запроса
-	$out = "POST mysite_php3/demo/socket/dummy.php HTTP/1.1\r\n";
+	$out = "POST php_3/demo/socket/dummy.php HTTP/1.1\r\n";
 	$out .= "Host: localhost\r\n";
 	$out .= "Content-Type: application/x-www-form-urlencoded\r\n";
 	$out .= "Content-length: " . strlen($str_query). "\r\n\r\n";
